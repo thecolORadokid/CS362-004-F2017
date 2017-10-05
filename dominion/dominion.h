@@ -97,6 +97,17 @@ int playCard(int handPos, int choice1, int choice2, int choice3,
 	     struct gameState *state);
 /* Play card with index handPos from current player's hand */
 
+/*This block is the function prototypes for the individual card functions called in the switch case block*/
+int smithyCard(int currentPlayer, struct gameState *state, int handPos);
+
+int adventurerCard(int currentPlayer, struct gameState *state, int handPos, int drawntreasure);
+
+int stewardCard(int currentPlayer, struct gameState *state, int choice1, int choice2, int choice3, int handPos);
+
+int embargoCard(struct gameState *state, int currentPlayer, int choice1, int handPos);
+
+int mineCard(struct gameState *state, int currentPlayer, int choice1, int choice2, int handPos);
+
 int buyCard(int supplyPos, struct gameState *state);
 /* Buy card with supply index supplyPos */
 
