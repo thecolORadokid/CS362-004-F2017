@@ -1,0 +1,103 @@
+        -:    0:Source:cardtest3.c
+        -:    0:Graph:cardtest3.gcno
+        -:    0:Data:cardtest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*This file is a unit test for the Embargo card.*/
+        -:    2:
+        -:    3:#include "dominion.h"
+        -:    4:#include "dominion_helpers.h"
+        -:    5:#include <string.h>
+        -:    6:#include <stdio.h>
+        -:    7:#include <assert.h>
+        -:    8:#include "rngs.h"
+        -:    9:
+function main called 1 returned 100% blocks executed 88%
+        1:   10:int main() {
+        1:   11:	int seed = 1000;
+        1:   12:	int numPlayers = 2;
+        1:   13:	int thisPlayer = 0;
+        -:   14:	struct gameState G, testG;
+        1:   15:	int k[10] = { adventurer, embargo, village, minion, mine, cutpurse,
+        -:   16:		sea_hag, tribute, smithy, council_room };
+        1:   17:	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+        -:   18:
+        -:   19:	// initialize a game state and player cards
+        1:   20:	initializeGame(numPlayers, k, seed, &G);
+call    0 returned 100%
+        -:   21:
+        -:   22:	//Test to see if the correct number of coins was given to the player
+        1:   23:	int totalSupplies = sizeof(testG.supplyCount) / sizeof(testG.supplyCount[0]);
+        1:   24:	printf("Testing embargoCard()...\n\n");
+call    0 returned 100%
+        1:   25:	printf("Testing function at every supply position...\n");
+call    0 returned 100%
+       28:   26:	for (int i = 0; i < totalSupplies; i++) {
+branch  0 taken 96%
+branch  1 taken 4% (fallthrough)
+       27:   27:		G.hand[thisPlayer][0] = embargo;
+       27:   28:		G.hand[thisPlayer][0] = copper;
+       27:   29:		G.hand[thisPlayer][0] = copper;
+       27:   30:		G.hand[thisPlayer][0] = estate;
+       27:   31:		G.hand[thisPlayer][0] = copper;
+       27:   32:		memcpy(&testG, &G, sizeof(struct gameState));
+       27:   33:		int initialNumCoins = testG.coins;
+       27:   34:		int initialNumCards = testG.handCount[thisPlayer];
+       27:   35:		cardEffect(embargo, i, choice2, choice3, &testG, handpos, &bonus);
+call    0 returned 100%
+       27:   36:		if (testG.embargoTokens[i] == 1) {
+branch  0 taken 63% (fallthrough)
+branch  1 taken 37%
+       17:   37:			printf("Test PASSED! Embargo token placed correctly for card %d.\n", i);
+call    0 returned 100%
+        -:   38:		}
+       10:   39:		else if (testG.supplyCount[i] == -1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+       10:   40:			printf("No card supply for card %d\n", i);
+call    0 returned 100%
+        -:   41:		}
+        -:   42:		else {
+    #####:   43:			printf("TEST FAILED! No embargo token place for card %d.\n", i);
+call    0 never executed
+        -:   44:		}
+        -:   45:	}
+        -:   46:
+        1:   47:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   48:	int initialNumCoins = testG.coins;
+        1:   49:	int initialNumCards = testG.handCount[thisPlayer];
+        1:   50:	cardEffect(embargo, choice1, choice2, choice3, &testG, handpos, &bonus);
+call    0 returned 100%
+        -:   51:	//check to see if action was executed correctly
+        -:   52:
+        1:   53:	printf("\n Testing coin functionality...\n");
+call    0 returned 100%
+        1:   54:	if (testG.coins != initialNumCoins + 2) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   55:		printf("Test FAILED! Incorrect number of coins given.\n");
+call    0 returned 100%
+        -:   56:	}
+        1:   57:	if (testG.coins == initialNumCoins +2){
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   58:		printf("Test PASSED! Correct number of coins given.\n");
+call    0 never executed
+        -:   59:	}
+        -:   60:	// check to see if clean up stage was correct
+        1:   61:	printf("\n Testing discard functionality. \n");
+call    0 returned 100%
+        1:   62:	if (testG.handCount[0] != initialNumCards - 1) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   63:		printf("Test FAILED! Improper discard functionality.\n");
+call    0 never executed
+        -:   64:	}
+        1:   65:	if (testG.handCount[0] == initialNumCards - 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   66:		printf("Test PASSED! Proper discard functionality.\n");
+call    0 returned 100%
+        -:   67:	}
+        1:   68:	return 0;
+        -:   69:}

@@ -1,0 +1,99 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*This file contains a unit test for the Adventurer card.*/
+        -:    2:
+        -:    3:#include "dominion.h"
+        -:    4:#include "dominion_helpers.h"
+        -:    5:#include "rngs.h"
+        -:    6:#include <string.h>
+        -:    7:#include <stdio.h>
+        -:    8:#include <assert.h>
+        -:    9:
+function main called 1 returned 100% blocks executed 84%
+        1:   10:int main() {
+        -:   11:
+        1:   12:	int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0; 
+        1:   13:	int seed = 1000; int numPlayers = 2; int thisPlayer = 0; 
+        -:   14:	struct gameState G, testG; 
+        1:   15:	int k[10] = { adventurer, embargo, village, minion, mine, cutpurse,sea_hag, tribute, smithy, council_room };
+        -:   16:	// initialize a game state and player cards
+        1:   17:	initializeGame(numPlayers, k, seed, &G);
+call    0 returned 100%
+        -:   18:
+        -:   19:	int initialNumCards, finalNumCards, initialDeckCount, finalDeckCount;
+        -:   20:
+        -:   21:	//this is the case where the deck is full of treasure cards, so no action cards need to be discarded
+        1:   22:	printf("Testing a deck full of treasure cards...\n");
+call    0 returned 100%
+        -:   23:	
+        1:   24:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   25:	initialNumCards = testG.handCount[thisPlayer];
+        1:   26:	initialDeckCount = testG.deckCount[0];
+        1:   27:	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+call    0 returned 100%
+        1:   28:	finalNumCards = testG.handCount[thisPlayer];
+        1:   29:	finalDeckCount = testG.deckCount[0];
+        1:   30:	printf("Initial hand count: %d,  Expected: %d \n", initialNumCards, 5);
+call    0 returned 100%
+        1:   31:	printf("Final hand count: %d, Expected: %d \n", finalNumCards, initialDeckCount +1);
+call    0 returned 100%
+        1:   32:	if (finalNumCards != initialNumCards + 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   33:		printf("Test FAILED. Incorrect number of cards in hand.\n");
+call    0 returned 100%
+        -:   34:	}
+        -:   35:	else {
+    #####:   36:		printf("Test PASSED. Correct number of cards in hand.\n");
+call    0 never executed
+        -:   37:	}
+        1:   38:	printf("Initial deck count: %d,  Expected: %d \n",initialDeckCount, 5);
+call    0 returned 100%
+        1:   39:	printf("Final deck count: %d, Expected: %d\n", finalDeckCount, initialDeckCount - 2);
+call    0 returned 100%
+        1:   40:	if (finalDeckCount != initialDeckCount -2) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   41:		printf("Test FAILED. Incorrect number of cards in hand.\n");
+call    0 never executed
+        -:   42:	}
+        -:   43:	else {
+        1:   44:		printf("Test PASSED. Correct number of cards in deck.\n");
+call    0 returned 100%
+        -:   45:	}
+        -:   46:
+        -:   47:	//this is an edge case, where all the cards in the deck are action cards, no treasure cards can be drawn
+        -:   48:	
+        1:   49:	G.deck[0][0] = smithy;
+        1:   50:	G.deck[0][1] = embargo; 
+        1:   51:	G.deck[0][2] = smithy;
+        1:   52:	G.deck[0][3] = embargo; 
+        1:   53:	G.deck[0][4] = smithy;
+        1:   54:	G.deck[0][5] = embargo; 
+        1:   55:	G.deck[0][6] = smithy;
+        1:   56:	G.deck[0][7] = embargo;
+        1:   57:	G.deck[0][8] = smithy;
+        1:   58:	G.deck[0][9] = embargo;
+        1:   59:	G.hand[0][0] = mine;
+        1:   60:	G.hand[0][1] = mine;
+        1:   61:	G.hand[0][2] = mine;
+        1:   62:	G.hand[0][3] = mine;
+        1:   63:	G.hand[0][5] = mine;
+        1:   64:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   65:	int result = cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
+call    0 returned 100%
+        1:   66:	if (result == 0) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   67:		printf("Test FAILED. Should be stuck in infinite loop.");
+call    0 returned 100%
+        -:   68:	}
+        -:   69:	else {
+    #####:   70:		printf("Test PASSED. Adventurer not used.\n");
+call    0 never executed
+        -:   71:	}
+        1:   72:	return 0;
+        -:   73:}

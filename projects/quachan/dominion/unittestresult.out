@@ -1,0 +1,228 @@
+unittest1.c:
+Testing buyCard()...
+
+Testing case numBuys = 0...
+TEST SUCCESSFUL. NO CARDS WERE PURCHASED WHEN NO BUYS WERE AVAILABLE.
+
+Testing case numBuys > 0...
+TEST SUCCESSFUL. NORMAL BUYING PHASE.
+
+Testing case numBuys > 0, excess coin, but no supply...
+TEST SUCCESSFUL. NO CARDS PURCHASED WHEN NONE ARE AVAILABLE.
+
+Testing case coins = 0, all cards available...
+Error for card: 0
+Error for card: 4
+TEST SUCCESSFUL. NO CARDS PURCHASED WHEN YOU HAVE NO COIN.
+
+File 'unittest1.c'
+Lines executed:95.65% of 46
+Branches executed:100.00% of 18
+Taken at least once:88.89% of 18
+Calls executed:88.24% of 17
+Creating 'unittest1.c.gcov'
+
+File 'dominion.c'
+Lines executed:24.73% of 558
+Creating 'dominion.c.gcov'
+
+unittest2.c:
+Testing playCard()...
+
+Testing phase functionality...
+Test PASSED. Could not play card when not the right phase.
+
+Test PASSED. Card played card when appropriate.
+Correct number of actions after function call.
+
+Testing number of actions functionality...
+Test PASSED. No actions to take.
+
+Test PASSED. Action taken when available.
+Correct number of actions after function call.
+
+Testing card input functionality...
+Test PASSED. Treasure card cannot be played.
+
+File 'unittest2.c'
+Lines executed:79.31% of 58
+Branches executed:58.33% of 24
+Taken at least once:29.17% of 24
+Calls executed:70.83% of 24
+Creating 'unittest2.c.gcov'
+
+File 'dominion.c'
+Lines executed:30.65% of 558
+Creating 'dominion.c.gcov'
+
+unittest3.c:
+Testing shuffling of initial deck...
+
+The deck is initially: 1, 1, 4, 4, 4, 4, 4, 1, 4, 4, 
+This shuffled deck is: 1, 1, 4, 4, 4, 4, 4, 1, 4, 4, 
+Test FAILED. Decks were not shuffled.
+
+Testing shuffling of a known deck...
+
+The deck is initially: 4, 1, 4, 4, 4, 4, 4, 1, 4, 4, 
+This shuffled deck is: 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 
+Test PASSED. Deck successfully shuffled!
+File 'unittest3.c'
+Lines executed:94.83% of 58
+Branches executed:90.00% of 20
+Taken at least once:70.00% of 20
+Calls executed:90.91% of 22
+Creating 'unittest3.c.gcov'
+
+File 'dominion.c'
+Lines executed:30.82% of 558
+Creating 'dominion.c.gcov'
+
+unittest4.c:
+Testing isGameOver()...
+Test PASSED. Game ended with Province supply at 0.
+
+Test PASSED. Game ended with 3 empty supply piles.
+
+File 'unittest4.c'
+Lines executed:90.91% of 22
+Branches executed:100.00% of 4
+Taken at least once:50.00% of 4
+Calls executed:75.00% of 8
+Creating 'unittest4.c.gcov'
+
+File 'dominion.c'
+Lines executed:31.36% of 558
+Creating 'dominion.c.gcov'
+
+cardtest1.c:
+Testing Smithy... 
+
+Testing initial number of cards in hand...
+Initial number of cards in hand: 5, Expected 5. 
+Test PASSED. Correct number of cards to begin with.
+
+Calling smityCard()...
+Final number of cards in hand: 8, Expected 7
+TEST FAILED! Incorrect number of cards in hand. 
+File 'cardtest1.c'
+Lines executed:88.89% of 18
+Branches executed:100.00% of 4
+Taken at least once:50.00% of 4
+Calls executed:81.82% of 11
+Creating 'cardtest1.c.gcov'
+
+File 'dominion.c'
+Lines executed:31.72% of 558
+Creating 'dominion.c.gcov'
+
+cardtest2.c:
+Testing a deck full of treasure cards...
+Initial hand count: 5,  Expected: 5 
+Final hand count: 7, Expected: 6 
+Test FAILED. Incorrect number of cards in hand.
+Initial deck count: 5,  Expected: 5 
+Final deck count: 3, Expected: 3
+Test PASSED. Correct number of cards in deck.
+Test FAILED. Should be stuck in infinite loop.File 'cardtest2.c'
+Lines executed:93.02% of 43
+Branches executed:100.00% of 6
+Taken at least once:50.00% of 6
+Calls executed:78.57% of 14
+Creating 'cardtest2.c.gcov'
+
+File 'dominion.c'
+Lines executed:36.56% of 558
+Creating 'dominion.c.gcov'
+
+cardtest3.c:
+Testing embargoCard()...
+
+Testing function at every supply position...
+Test PASSED! Embargo token placed correctly for card 0.
+Test PASSED! Embargo token placed correctly for card 1.
+Test PASSED! Embargo token placed correctly for card 2.
+Test PASSED! Embargo token placed correctly for card 3.
+Test PASSED! Embargo token placed correctly for card 4.
+Test PASSED! Embargo token placed correctly for card 5.
+Test PASSED! Embargo token placed correctly for card 6.
+Test PASSED! Embargo token placed correctly for card 7.
+Test PASSED! Embargo token placed correctly for card 8.
+No card supply for card 9
+No card supply for card 10
+Test PASSED! Embargo token placed correctly for card 11.
+No card supply for card 12
+Test PASSED! Embargo token placed correctly for card 13.
+Test PASSED! Embargo token placed correctly for card 14.
+No card supply for card 15
+No card supply for card 16
+Test PASSED! Embargo token placed correctly for card 17.
+No card supply for card 18
+Test PASSED! Embargo token placed correctly for card 19.
+No card supply for card 20
+Test PASSED! Embargo token placed correctly for card 21.
+Test PASSED! Embargo token placed correctly for card 22.
+No card supply for card 23
+No card supply for card 24
+Test PASSED! Embargo token placed correctly for card 25.
+No card supply for card 26
+
+ Testing coin functionality...
+Test FAILED! Incorrect number of coins given.
+
+ Testing discard functionality. 
+Test PASSED! Proper discard functionality.
+File 'cardtest3.c'
+Lines executed:92.50% of 40
+Branches executed:100.00% of 14
+Taken at least once:64.29% of 14
+Calls executed:78.57% of 14
+Creating 'cardtest3.c.gcov'
+
+File 'dominion.c'
+Lines executed:39.61% of 558
+Creating 'dominion.c.gcov'
+
+cardtest4.c:
+Testing Mine Card...
+Testing choice 2 = copper...
+
+Test PASSED. No exchange for copper.
+Test FAILED. Incorrect number of cards in hand.
+
+Testing choice 2 = silver...
+
+4 trashed for 5
+Final Hand Count: 5
+Hand contains: 5 ,4 ,5 ,6 ,1 ,
+
+
+
+Test PASSED. Copper for silver.
+Test FAILED. Incorrect number of cards in hand.
+
+
+Testing choice 2 = gold...
+
+4 trashed for 6
+Final Hand Count: 5
+Hand contains: 6 ,4 ,5 ,6 ,1 ,
+5 trashed for 6
+Final Hand Count: 5
+Hand contains: 6 ,4 ,5 ,6 ,1 ,
+
+
+Test PASSED. Copper and silver for gold.
+Test FAILED. Incorrect number of cards in hand.
+
+File 'cardtest4.c'
+Lines executed:86.05% of 86
+Branches executed:93.33% of 30
+Taken at least once:70.00% of 30
+Calls executed:70.59% of 34
+Creating 'cardtest4.c.gcov'
+
+File 'dominion.c'
+Lines executed:42.65% of 558
+Creating 'dominion.c.gcov'
+
