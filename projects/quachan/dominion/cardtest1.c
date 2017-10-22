@@ -14,6 +14,7 @@ int main() {
 	int k[10] = { adventurer, gardens, embargo, village, minion, mine, cutpurse,
 		sea_hag, tribute, smithy };
 	initializeGame(2, k, 10, &G);
+	G.hand[0][0] = smithy;
 	memcpy(&testG, &G, sizeof(struct gameState));
 	int initialNumCards = testG.handCount[0];
 	printf("Testing Smithy... \n\n");
