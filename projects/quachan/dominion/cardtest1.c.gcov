@@ -21,39 +21,40 @@ function main called 1 returned 100% blocks executed 87%
         -:   15:		sea_hag, tribute, smithy };
         1:   16:	initializeGame(2, k, 10, &G);
 call    0 returned 100%
-        1:   17:	memcpy(&testG, &G, sizeof(struct gameState));
-        1:   18:	int initialNumCards = testG.handCount[0];
-        1:   19:	printf("Testing Smithy... \n\n");
+        1:   17:	G.hand[0][0] = smithy;
+        1:   18:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   19:	int initialNumCards = testG.handCount[0];
+        1:   20:	printf("Testing Smithy... \n\n");
 call    0 returned 100%
-        1:   20:	printf("Testing initial number of cards in hand...\n");
+        1:   21:	printf("Testing initial number of cards in hand...\n");
 call    0 returned 100%
-        1:   21:	printf("Initial number of cards in hand: %d, Expected %d. \n", initialNumCards, initialNumCards);
+        1:   22:	printf("Initial number of cards in hand: %d, Expected %d. \n", initialNumCards, initialNumCards);
 call    0 returned 100%
-        1:   22:	if (initialNumCards == 5) {
+        1:   23:	if (initialNumCards == 5) {
 branch  0 taken 100% (fallthrough)
 branch  1 taken 0%
-        1:   23:		printf("Test PASSED. Correct number of cards to begin with.\n\n");
+        1:   24:		printf("Test PASSED. Correct number of cards to begin with.\n\n");
 call    0 returned 100%
-        -:   24:	}
-        -:   25:	else {
-    #####:   26:		printf("Test FAILED. Incorrect number of starting cards.\n\n");
+        -:   25:	}
+        -:   26:	else {
+    #####:   27:		printf("Test FAILED. Incorrect number of starting cards.\n\n");
 call    0 never executed
-        -:   27:	}
-        1:   28:	smithyCard(0, &testG, 1);
+        -:   28:	}
+        1:   29:	smithyCard(0, &testG, 1);
 call    0 returned 100%
-        1:   29:	printf("Calling smityCard()...\n");
+        1:   30:	printf("Calling smityCard()...\n");
 call    0 returned 100%
-        1:   30:	printf("Final number of cards in hand: %d, Expected %d\n", testG.handCount[0], initialNumCards + 2);
+        1:   31:	printf("Final number of cards in hand: %d, Expected %d\n", testG.handCount[0], initialNumCards + 2);
 call    0 returned 100%
-        1:   31:	if (testG.handCount[0] == initialNumCards + 2) {
+        1:   32:	if (testG.handCount[0] == initialNumCards + 2) {
 branch  0 taken 0% (fallthrough)
 branch  1 taken 100%
-    #####:   32:		printf("Test PASSED. Correct number of cards drawn.");
+    #####:   33:		printf("Test PASSED. Correct number of cards drawn.");
 call    0 never executed
-        -:   33:	}
-        -:   34:	else {
-        1:   35:		printf("TEST FAILED! Incorrect number of cards in hand. \n");
+        -:   34:	}
+        -:   35:	else {
+        1:   36:		printf("TEST FAILED! Incorrect number of cards in hand. \n");
 call    0 returned 100%
-        -:   36:	}
-        1:   37:	return 0;
-        -:   38:}
+        -:   37:	}
+        1:   38:	return 0;
+        -:   39:}

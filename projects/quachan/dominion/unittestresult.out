@@ -106,7 +106,7 @@ Calling smityCard()...
 Final number of cards in hand: 8, Expected 7
 TEST FAILED! Incorrect number of cards in hand. 
 File 'cardtest1.c'
-Lines executed:88.89% of 18
+Lines executed:89.47% of 19
 Branches executed:100.00% of 4
 Taken at least once:50.00% of 4
 Calls executed:81.82% of 11

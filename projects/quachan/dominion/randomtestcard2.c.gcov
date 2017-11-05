@@ -1,0 +1,128 @@
+        -:    0:Source:randomtestcard2.c
+        -:    0:Graph:randomtestcard2.gcno
+        -:    0:Data:randomtestcard2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion_helpers.h"
+        -:    2:#include <string.h>
+        -:    3:#include <stdio.h>
+        -:    4:#include <assert.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <time.h>
+        -:    8:
+        -:    9:
+function checkSteward called 20000 returned 100% blocks executed 83%
+    20000:   10:int checkSteward(int currentPlayer, struct gameState *state, int choice1, int choice2, int choice3, int handPos, int initialHandCount, int initialCoins, int seed) {
+    20000:   11:	int result = stewardCard(currentPlayer, state, choice1, choice2, choice3, handPos);
+call    0 returned 100%
+    20000:   12:	assert(result == 0 && "Seed: %d, Failed to execute");
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+        -:   13:
+    20000:   14:	if (choice1 == 1) {
+branch  0 taken 32% (fallthrough)
+branch  1 taken 68%
+     6473:   15:		if (state->handCount[currentPlayer] != (initialHandCount + 1)) {
+branch  0 taken 1% (fallthrough)
+branch  1 taken 99%
+       11:   16:			printf("Seed: %d, test failed, incorrect number of cards in hand.\n", seed);
+call    0 returned 100%
+        -:   17:		}
+        -:   18:		else {
+     6462:   19:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+        -:   20:		}
+        -:   21:	}
+    13527:   22:	else if (choice1 == 2) {
+branch  0 taken 49% (fallthrough)
+branch  1 taken 51%
+     6690:   23:		if (state->coins != initialCoins + 2) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   24:			printf("Seed: %d, test failed, incorrect number of coins.\n", seed);
+call    0 never executed
+        -:   25:		}
+        -:   26:		else {
+     6690:   27:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+        -:   28:		}
+        -:   29:	}
+     6837:   30:	else if (choice1 == 3) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+     6837:   31:		if (state->handCount[currentPlayer] != initialHandCount - 3) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   32:			printf("Seed: %d, Choice: %d, test failed. Incorrect number of cards in hand.\n", seed, choice1);
+call    0 never executed
+        -:   33:		}
+        -:   34:		else {
+     6837:   35:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+        -:   36:		}
+        -:   37:	}
+    20000:   38:}
+        -:   39:
+function main called 1 returned 100% blocks executed 100%
+        1:   40:int main() {
+        1:   41:	srand(time(NULL));
+call    0 returned 100%
+call    1 returned 100%
+        -:   42:	int i,j, n, seed, choice1, choice2, choice3;
+        1:   43:	int thisPlayer = 0;
+        1:   44:	int numTests = 20000;
+        1:   45:	int k[10] = { adventurer, gardens, embargo, village, minion, mine, cutpurse,
+        -:   46:		sea_hag, tribute, smithy };
+        -:   47:
+        1:   48:	printf("Testing Steward...\n");
+call    0 returned 100%
+        -:   49:	struct gameState G;
+        -:   50:
+    20001:   51:	for (n = 0; n < numTests; n++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    20000:   52:		seed = rand() % RAND_MAX;
+call    0 returned 100%
+    20000:   53:		initializeGame(2, k, seed, &G);
+call    0 returned 100%
+    20000:   54:		G.handCount[thisPlayer] = rand() % MAX_HAND + 1;
+call    0 returned 100%
+  4983207:   55:		for (i = 0; i < G.handCount[thisPlayer]; i++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+  4963207:   56:			G.hand[thisPlayer][i] = rand() % (22) + 4;
+call    0 returned 100%
+        -:   57:		}
+    20000:   58:		int stewardPos = rand() % G.handCount[thisPlayer] ;
+call    0 returned 100%
+    20000:   59:		G.deckCount[thisPlayer] = rand() % MAX_DECK + 1;
+call    0 returned 100%
+  5044708:   60:		for (j = 0; j < G.deckCount[thisPlayer]; j++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+  5024708:   61:			G.hand[thisPlayer][i] = rand() % (22) + 4;
+call    0 returned 100%
+        -:   62:		}
+    20000:   63:		G.hand[thisPlayer][stewardPos] = steward;
+    20000:   64:		choice1 = rand() % (3) + 1;
+call    0 returned 100%
+    20000:   65:		choice2 = rand() % (G.handCount[thisPlayer] + 1);
+call    0 returned 100%
+    20000:   66:		choice3 = rand() % (G.handCount[thisPlayer] + 1);
+call    0 returned 100%
+        -:   67:	/*	while(choice2 == choice1) {
+        -:   68:			choice2 = rand() % (G.handCount[thisPlayer]);
+        -:   69:		}
+        -:   70:		while (choice3 == choice1 || choice3 == choice2) {
+        -:   71:			choice3 = rand() % (G.handCount[thisPlayer]);
+        -:   72:		}*/
+    20000:   73:		int initialCoins = G.coins;
+    20000:   74:		int initialHandCount = G.handCount[thisPlayer];
+    20000:   75:		checkSteward(thisPlayer, &G, choice1, choice2, choice3, stewardPos, initialHandCount, initialCoins,seed);
+call    0 returned 100%
+        -:   76:	}
+        -:   77:	
+        1:   78:	return 0;
+        -:   79:}
