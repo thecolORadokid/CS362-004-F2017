@@ -660,7 +660,7 @@ int adventurerCard(int currentPlayer, struct gameState *state, int handPos, int 
 	int temphand[MAX_HAND];
 	int cardDrawn;
 	int z = 0;
-	while (drawntreasure<2) {
+	while (drawntreasure<4) { //CHANGED FROM 2 TO 4
 		if (state->deckCount[currentPlayer] <1) {//if the deck is empty we need to shuffle discard and add to deck
 			shuffle(currentPlayer, state);
 		}
