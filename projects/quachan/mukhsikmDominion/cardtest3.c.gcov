@@ -1,0 +1,75 @@
+        -:    0:Source:cardtest3.c
+        -:    0:Graph:cardtest3.gcno
+        -:    0:Data:cardtest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <string.h>
+        -:    2:#include <stdio.h>
+        -:    3:#include <stdlib.h>
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:
+function main called 1 returned 100% blocks executed 76%
+        1:    7:int main() {
+        1:    8:    printf("Testing card feast\n");
+call    0 returned 100%
+        -:    9:    // the tests will fail because bugs were intentionally added to smithy
+        -:   10:    // in previous assignment
+        -:   11:    struct gameState state;
+        1:   12:    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+        -:   13:        sea_hag, tribute, smithy};
+        1:   14:    int randomSeed = 5;
+        1:   15:    int player = 0;
+        1:   16:    int handPos = 0;
+        1:   17:    int choice1 = village, choice2 = 0, choice3 = 0, bonus = 0;
+        -:   18:    // will loop infinitely if choice1 is either too expensive or not in supply
+        1:   19:    initializeGame(3, k, randomSeed, &state);
+call    0 returned 100%
+        1:   20:    int prevHandCount = state.handCount[player];
+        1:   21:    int prevSupplyCount = state.supplyCount[village];
+        -:   22:    // printf("%d\n", state.coins);
+        -:   23:    // feast supposed to give 5 coins to player and let player
+        -:   24:    // purchase one card
+        1:   25:    cardEffect(feast, choice1, choice2, choice3, &state, handPos, &bonus);
+call    0 returned 100%
+        -:   26:    // printf("%d\n", state.coins);
+        1:   27:    if (state.coins == 5) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   28:        printf("feast: PASS 5 coins added\n");
+call    0 never executed
+        -:   29:    } else {
+        1:   30:        printf("feast: FAIL expected 5 coins got=%d\n", state.coins);
+call    0 returned 100%
+        -:   31:    }
+        1:   32:    if (state.handCount[player] == prevHandCount) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   33:        printf("feast: PASS hand count unchanged\n");
+call    0 returned 100%
+        -:   34:    } else {
+    #####:   35:        printf("feast: FAIL expected hand count=%d got=%d\n", prevHandCount, state.handCount[player]);
+call    0 never executed
+        -:   36:    }
+        1:   37:    if (state.supplyCount[village] == prevSupplyCount - 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   38:        printf("feast: PASS supply count decremented\n");
+call    0 returned 100%
+        -:   39:    } else {
+    #####:   40:        printf("feast: FAIL supply count not decremented\n");
+call    0 never executed
+        -:   41:    }
+        1:   42:    int lastCard = state.hand[player][state.handCount[player]-1];
+        1:   43:    if (lastCard == village) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   44:        printf("feast: PASS purchased village\n");
+call    0 never executed
+        -:   45:    } else {
+        1:   46:        printf("feast: FAIL village not purchased\n");
+call    0 returned 100%
+        -:   47:    }
+        -:   48:    
+        1:   49:    return 0;
+        -:   50:}

@@ -1,0 +1,148 @@
+        -:    0:Source:randomtestcard2.c
+        -:    0:Graph:randomtestcard2.gcno
+        -:    0:Data:randomtestcard2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion_helpers.h"
+        -:    2:#include <string.h>
+        -:    3:#include <stdio.h>
+        -:    4:#include <assert.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <stdlib.h>
+        -:    7:#include <time.h>
+        -:    8:
+        -:    9:
+function checkSteward called 20000 returned 100% blocks executed 70%
+    20000:   10:int checkSteward(int currentPlayer, struct gameState *state, int choice1, int choice2, int choice3, int handPos, int initialHandCount, int initialCoins, int seed) {
+        -:   11:	//int result = stewardCard(currentPlayer, state, choice1, choice2, choice3, handPos);
+    20000:   12:	int *bonus = 0;
+    20000:   13:	int result = cardEffect(steward, choice1, choice2, choice3, state, handPos, &bonus);
+call    0 returned 100%
+    20000:   14:	assert(result == 0 && "Seed: %d, Failed to execute");
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+call    2 never executed
+        -:   15:
+    20000:   16:	if (choice1 == 1) {
+branch  0 taken 34% (fallthrough)
+branch  1 taken 66%
+     6718:   17:		if (state->handCount[currentPlayer] != (initialHandCount + 1)) {
+branch  0 taken 1% (fallthrough)
+branch  1 taken 99%
+       14:   18:			printf("Seed: %d, test failed, incorrect number of cards in hand.", seed);
+call    0 returned 100%
+       14:   19:			printf("%d cards in hand. Expected %d.\n", state->handCount[currentPlayer], initialHandCount +1);
+call    0 returned 100%
+    20014:   20:			return 1;
+        -:   21:		}
+        -:   22:		else {
+     6704:   23:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+     6704:   24:			return 0;
+        -:   25:		}
+        -:   26:	}
+    13282:   27:	else if (choice1 == 2) {
+branch  0 taken 50% (fallthrough)
+branch  1 taken 50%
+     6631:   28:		if (state->coins != initialCoins + 2) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   29:			printf("Seed: %d, test failed, incorrect number of coins.", seed);
+call    0 never executed
+    #####:   30:			printf("%d coins. Expected %d.\n", state->coins, initialCoins+2);
+call    0 never executed
+    #####:   31:			return 1;
+        -:   32:		}
+        -:   33:		else {
+     6631:   34:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+     6631:   35:			return 0;
+        -:   36:		}
+        -:   37:	}
+     6651:   38:	else if (choice1 == 3) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+     6651:   39:		if (state->handCount[currentPlayer] != initialHandCount - 3) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   40:			printf("Seed: %d, Choice: %d, test failed. Incorrect number of cards in hand.", seed, choice1);
+call    0 never executed
+    #####:   41:			printf("%d cards in hand. Expected %d.\n", state->handCount[currentPlayer], initialHandCount - 3);
+call    0 never executed
+    #####:   42:			return 1;
+        -:   43:		}
+        -:   44:		else {
+     6651:   45:			printf("Seed: %d, test passed.\n", seed);
+call    0 returned 100%
+     6651:   46:			return 0;
+        -:   47:		}
+        -:   48:	}
+    #####:   49:}
+        -:   50:
+function main called 1 returned 100% blocks executed 100%
+        1:   51:int main() {
+        1:   52:	srand(time(NULL));
+call    0 returned 100%
+call    1 returned 100%
+        -:   53:	int i,j, n, seed, choice1, choice2, choice3;
+        1:   54:	int thisPlayer = 0;
+        1:   55:	int numTests = 20000;
+        1:   56:	int k[10] = { adventurer, gardens, embargo, village, minion, mine, cutpurse,
+        -:   57:		sea_hag, tribute, smithy };
+        -:   58:
+        1:   59:	printf("Testing Steward...\n");
+call    0 returned 100%
+        -:   60:	struct gameState G;
+        1:   61:	int failCount = 0;
+    20001:   62:	for (n = 0; n < numTests; n++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+    20000:   63:		seed = rand() % RAND_MAX;
+call    0 returned 100%
+    20000:   64:		initializeGame(2, k, seed, &G);
+call    0 returned 100%
+    20000:   65:		G.handCount[thisPlayer] = rand() % MAX_HAND + 1;
+call    0 returned 100%
+  5019119:   66:		for (i = 0; i < G.handCount[thisPlayer]; i++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+  4999119:   67:			G.hand[thisPlayer][i] = rand() % (22) + 4;
+call    0 returned 100%
+        -:   68:		}
+    20000:   69:		int stewardPos = rand() % G.handCount[thisPlayer] ;
+call    0 returned 100%
+    20000:   70:		G.deckCount[thisPlayer] = rand() % MAX_DECK + 1;
+call    0 returned 100%
+  5071502:   71:		for (j = 0; j < G.deckCount[thisPlayer]; j++) {
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+  5051502:   72:			G.hand[thisPlayer][i] = rand() % (22) + 4;
+call    0 returned 100%
+        -:   73:		}
+    20000:   74:		G.hand[thisPlayer][stewardPos] = steward;
+    20000:   75:		choice1 = rand() % (3) + 1;
+call    0 returned 100%
+    20000:   76:		choice2 = rand() % (G.handCount[thisPlayer] + 1);
+call    0 returned 100%
+    20000:   77:		choice3 = rand() % (G.handCount[thisPlayer] + 1);
+call    0 returned 100%
+        -:   78:	/*	while(choice2 == choice1) {
+        -:   79:			choice2 = rand() % (G.handCount[thisPlayer]);
+        -:   80:		}
+        -:   81:		while (choice3 == choice1 || choice3 == choice2) {
+        -:   82:			choice3 = rand() % (G.handCount[thisPlayer]);
+        -:   83:		}*/
+    20000:   84:		int initialCoins = G.coins;
+    20000:   85:		int initialHandCount = G.handCount[thisPlayer];
+    20000:   86:		if (checkSteward(thisPlayer, &G, choice1, choice2, choice3, stewardPos, initialHandCount, initialCoins, seed)) {
+call    0 returned 100%
+branch  1 taken 1% (fallthrough)
+branch  2 taken 99%
+       14:   87:			failCount++;
+        -:   88:		};
+        -:   89:	}
+        -:   90:	
+        1:   91:	printf("%d failures out of %d tests.", failCount, numTests);
+call    0 returned 100%
+        1:   92:	return 0;
+        -:   93:}

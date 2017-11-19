@@ -1,0 +1,65 @@
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <string.h>
+        -:    2:#include <stdio.h>
+        -:    3:#include <stdlib.h>
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:
+function main called 1 returned 100% blocks executed 79%
+        1:    7:int main() {
+        1:    8:    printf("Testing card council room\n");
+call    0 returned 100%
+        -:    9:    // the tests will fail because bugs were intentionally added to smithy
+        -:   10:    // in previous assignment
+        -:   11:    struct gameState state;
+        1:   12:    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+        -:   13:        sea_hag, tribute, smithy};
+        1:   14:    int randomSeed = 5;
+        1:   15:    int player = 0;
+        1:   16:    int otherPlayer = 1;
+        1:   17:    int handPos = 0;
+        1:   18:    int choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+        -:   19:    // will loop infinitely if choice1 is either too expensive or not in supply
+        1:   20:    initializeGame(2, k, randomSeed, &state);
+call    0 returned 100%
+        1:   21:    int prevHandCount = state.handCount[player];
+        1:   22:    int prevHandCountOtherPlayer = state.handCount[otherPlayer];
+        -:   23:    // printf("%d\n", prevHandCount);
+        1:   24:    int prevBuy = state.numBuys;
+        1:   25:    cardEffect(council_room, choice1, choice2, choice3, &state, handPos, &bonus);
+call    0 returned 100%
+        1:   26:    if (state.numBuys == prevBuy + 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   27:        printf("council room: PASS number of buys incremented\n");
+call    0 returned 100%
+        -:   28:    } else {
+    #####:   29:        printf("council room: FAIL number of buys not incremented\n");
+call    0 never executed
+        -:   30:    }
+        -:   31:    // player should have an extra 3 cards in hand (4 - council room card)
+        1:   32:    if (state.handCount[player] == prevHandCount + 3) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   33:        printf("council room: PASS player hand count expected=%d got=%d\n", prevHandCount+3, state.handCount[player]);
+call    0 never executed
+        -:   34:    } else {
+        1:   35:        printf("council room: FAIL player hand count expected=%d got=%d\n", prevHandCount+3, state.handCount[player]);
+call    0 returned 100%
+        -:   36:    }
+        1:   37:    if (state.handCount[otherPlayer] == prevHandCountOtherPlayer + 1) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   38:        printf("council room: PASS other player hand count expected=%d got=%d\n", prevHandCountOtherPlayer+1, state.handCount[otherPlayer]);
+call    0 returned 100%
+        -:   39:    } else {
+    #####:   40:        printf("council room: FAIL other player hand count expected=%d got=%d\n", prevHandCountOtherPlayer+1, state.handCount[otherPlayer]);
+call    0 never executed
+        -:   41:    }
+        -:   42:    
+        1:   43:    return 0;
+        -:   44:}

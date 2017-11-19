@@ -1,0 +1,21 @@
+Bug Reports
+
+Title: Random testing on Smithy card
+Class: Behavioral defect
+Date: November 14, 2017
+Product/Function: Dominion - smithyEffect
+Description: Inappropriate Smithy behavior. Ending up with more cards in the hand as expected after Smithy function call. 
+Steps to Reproduce: Use the same random tester, while feeding the associated seed number. In this test, 100% of tests failed, so the error is systematic. 
+Expected Results: The original number of cards in the hand, plus 2. 
+Actual Results: The original number of cards in the hand plus 3.
+Workarounds: Since the error seems to be systematic, there is no workaround, other than to go back into the function and fix the bug. Since we know the functionality of this card, it should be clear where the bug resides. 
+
+Title: Random testing on Steward card
+Class: Behavioral defect
+Date: November 14, 2017
+Product/Function: Dominion - cardEffect(steward)
+Description: Inappropriate Steward behavior. Ending up with less cards in the hand as expected after cardEffect(steward) function call. 
+Steps to Reproduce: Use the same random tester, while feeding the associated seed number. In this test, there are three possible points of failure, since there are 3 possibilities for choice 1. There are not many failures out of the total 20000, about 0.05% of cases fail on average. However, every case that I have seen has been a failure when choice1 = 1. This is the case where the player draws 2 cards and discards the Steward.
+Expected Results: The original number of cards in the hand, plus 1. 
+Actual Results: The original number of cards in the hand minus 1.
+Workarounds: Seems to be discarding twice, look at discard statements to make sure this function is operating correctly. 

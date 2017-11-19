@@ -1,0 +1,52 @@
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <string.h>
+        -:    2:#include <stdio.h>
+        -:    3:#include <stdlib.h>
+        -:    4:#include "dominion.h"
+        -:    5:#include "dominion_helpers.h"
+        -:    6:
+function main called 1 returned 100% blocks executed 82%
+        1:    7:int main() {
+        1:    8:    printf("Testing card smithy\n");
+call    0 returned 100%
+        -:    9:    // the tests will fail because bugs were intentionally added to smithy
+        -:   10:    // in previous assignment
+        -:   11:    struct gameState state;
+        1:   12:    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+        -:   13:        sea_hag, tribute, smithy};
+        1:   14:    int randomSeed = 5;
+        1:   15:    int player = 0;
+        1:   16:    int handPos = 0;
+        1:   17:    int choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
+        -:   18:
+        1:   19:    initializeGame(3, k, randomSeed, &state);
+call    0 returned 100%
+        1:   20:    int prevHandCount = state.handCount[player];
+        1:   21:    int prevDeckCount = state.deckCount[player];
+        1:   22:    cardEffect(smithy, choice1, choice2, choice3, &state, handPos, &bonus);
+call    0 returned 100%
+        -:   23:    // smithy adds 3 cards to hand but smithy card is discarded
+        1:   24:    if (prevHandCount + 2 == state.handCount[player]) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   25:        printf("smithy: PASS hand count increased by 3\n");
+call    0 never executed
+        -:   26:    } else {
+        1:   27:        printf("smithy: FAIL hand count=%d expected=%d\n", state.handCount[player], prevHandCount+2);
+call    0 returned 100%
+        -:   28:    }
+        1:   29:    if (prevDeckCount - 3 == state.deckCount[player]) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   30:        printf("smithy: PASS deck count=%d expected=%d\n", state.deckCount[player], prevDeckCount-3);
+call    0 never executed
+        -:   31:    } else {
+        1:   32:        printf("smithy: FAIL deck count=%d expected=%d\n", state.deckCount[player], prevDeckCount-3);
+call    0 returned 100%
+        -:   33:    }
+        1:   34:    return 0;
+        -:   35:}

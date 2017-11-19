@@ -1,0 +1,190 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*This file is meant to be a unit test for shuffle()*/
+        -:    2:#include "dominion.h"
+        -:    3:#include "dominion_helpers.h"
+        -:    4:#include <string.h>
+        -:    5:#include <stdio.h>
+        -:    6:#include <assert.h>
+        -:    7:#include "rngs.h"
+        -:    8:#include <stdlib.h>
+        -:    9:
+function main called 1 returned 100% blocks executed 92%
+        1:   10:int main() {
+        1:   11:	int seed = 1000;
+        1:   12:	int numPlayers = 2;
+        1:   13:	int thisPlayer = 0;
+        -:   14:	struct gameState G, testG;
+        1:   15:	int k[10] = { adventurer, embargo, village, minion, mine, cutpurse,
+        -:   16:		sea_hag, tribute, smithy, council_room };
+        1:   17:	initializeGame(numPlayers, k, seed, &G);
+call    0 returned 100%
+        -:   18:	int initialDeck[10], finalDeck[10];
+        1:   19:	printf("Testing shuffling of initial deck...\n\n");
+call    0 returned 100%
+        1:   20:	printf("The deck is initially: ");
+call    0 returned 100%
+       11:   21:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:   22:		initialDeck[i] = G.deck[thisPlayer][i];
+       10:   23:		printf("%d, ", initialDeck[i]);
+call    0 returned 100%
+        -:   24:	}
+        1:   25:	printf("\n");
+call    0 returned 100%
+        -:   26:
+        1:   27:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   28:	shuffle(thisPlayer, &testG);
+call    0 returned 100%
+        1:   29:	printf("This shuffled deck is: ");
+call    0 returned 100%
+        1:   30:	int compareCounter = 0;
+       11:   31:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:   32:		finalDeck[i] = testG.deck[thisPlayer][i];
+       10:   33:		printf("%d, ", finalDeck[i]);
+call    0 returned 100%
+       10:   34:		if (initialDeck[i] == finalDeck[i]) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+       10:   35:			compareCounter++;
+        -:   36:		}
+        -:   37:	}
+        1:   38:	printf("\n");
+call    0 returned 100%
+        1:   39:	if (compareCounter != 10) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   40:		printf("Test PASSED> Deck successfully shuffled!\n");
+call    0 never executed
+        -:   41:	}
+        1:   42:	else if (compareCounter == 10){
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   43:		printf("Test FAILED. Decks were not shuffled.\n");
+call    0 returned 100%
+        -:   44:	}
+        1:   45:	printf("\n");
+call    0 returned 100%
+        -:   46:
+        1:   47:	printf("Testing shuffling of a known deck...\n\n");
+call    0 returned 100%
+        1:   48:	printf("The deck is initially: ");
+call    0 returned 100%
+        1:   49:	G.deck[thisPlayer][0] = 4;
+        1:   50:	G.deck[thisPlayer][1] = 4;
+        1:   51:	G.deck[thisPlayer][2] = 1;
+        1:   52:	G.deck[thisPlayer][3] = 4;
+        1:   53:	G.deck[thisPlayer][4] = 4;
+        1:   54:	G.deck[thisPlayer][5] = 1;
+        1:   55:	G.deck[thisPlayer][6] = 4;
+        1:   56:	G.deck[thisPlayer][7] = 4;
+        1:   57:	G.deck[thisPlayer][8] = 1;
+        1:   58:	G.deck[thisPlayer][9] = 4;
+        -:   59:
+        1:   60:	compareCounter = 0;
+       11:   61:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:   62:		initialDeck[i] = G.deck[thisPlayer][i];
+       10:   63:		printf("%d, ", initialDeck[i]);
+call    0 returned 100%
+        -:   64:	}
+        1:   65:	printf("\n");
+call    0 returned 100%
+        -:   66:	
+        1:   67:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:   68:	shuffle(thisPlayer, &testG);
+call    0 returned 100%
+        1:   69:	printf("This shuffled deck is: ");
+call    0 returned 100%
+       11:   70:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:   71:		finalDeck[i] = testG.deck[thisPlayer][i];
+       10:   72:		printf("%d, ", finalDeck[i]);
+call    0 returned 100%
+       10:   73:		if (initialDeck[i] == finalDeck[i]) {
+branch  0 taken 80% (fallthrough)
+branch  1 taken 20%
+        8:   74:			compareCounter++;
+        -:   75:		}
+        -:   76:	}
+        1:   77:	printf("\n");
+call    0 returned 100%
+        1:   78:	if (compareCounter != 10) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   79:		printf("Test PASSED. Deck successfully shuffled!\n");
+call    0 returned 100%
+        -:   80:	}
+    #####:   81:	else if (compareCounter == 10) {
+branch  0 never executed
+branch  1 never executed
+    #####:   82:		printf("Test FAILED. Decks were not shuffled.\n");
+call    0 never executed
+        -:   83:	}
+        1:   84:	printf("Testing shuffling of a known deck...\n\n");
+call    0 returned 100%
+        1:   85:	printf("The deck is initially: ");
+call    0 returned 100%
+        1:   86:	G.deck[thisPlayer][0] = 1;
+        1:   87:	G.deck[thisPlayer][1] = 2;
+        1:   88:	G.deck[thisPlayer][2] = 3;
+        1:   89:	G.deck[thisPlayer][3] = 4;
+        1:   90:	G.deck[thisPlayer][4] = 5;
+        1:   91:	G.deck[thisPlayer][5] = 6;
+        1:   92:	G.deck[thisPlayer][6] = 7;
+        1:   93:	G.deck[thisPlayer][7] = 8;
+        1:   94:	G.deck[thisPlayer][8] = 9;
+        1:   95:	G.deck[thisPlayer][9] = 10;
+        -:   96:
+        1:   97:	compareCounter = 0;
+       11:   98:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:   99:		initialDeck[i] = G.deck[thisPlayer][i];
+       10:  100:		printf("%d, ", initialDeck[i]);
+call    0 returned 100%
+        -:  101:	}
+        1:  102:	printf("\n");
+call    0 returned 100%
+        -:  103:
+        1:  104:	memcpy(&testG, &G, sizeof(struct gameState));
+        1:  105:	shuffle(thisPlayer, &testG);
+call    0 returned 100%
+        1:  106:	printf("This shuffled deck is: ");
+call    0 returned 100%
+       11:  107:	for (int i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9% (fallthrough)
+       10:  108:		finalDeck[i] = testG.deck[thisPlayer][i];
+       10:  109:		printf("%d, ", finalDeck[i]);
+call    0 returned 100%
+       10:  110:		if (initialDeck[i] == finalDeck[i]) {
+branch  0 taken 60% (fallthrough)
+branch  1 taken 40%
+        6:  111:			compareCounter++;
+        -:  112:		}
+        -:  113:	}
+        1:  114:	printf("\n");
+call    0 returned 100%
+        1:  115:	if (compareCounter != 10) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:  116:		printf("Test PASSED. Deck successfully shuffled!\n");
+call    0 returned 100%
+        -:  117:	}
+    #####:  118:	else if (compareCounter == 10) {
+branch  0 never executed
+branch  1 never executed
+    #####:  119:		printf("Test FAILED. Decks were not shuffled.\n");
+call    0 never executed
+        -:  120:	}
+        1:  121:	return 0;
+        -:  122:}
