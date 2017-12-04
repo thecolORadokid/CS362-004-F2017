@@ -17,7 +17,7 @@
 
 
 import junit.framework.TestCase;
-
+import java.util.ArrayList;
 
 
 
@@ -40,10 +40,69 @@ public class UrlValidatorTest extends TestCase {
    
    public void testManualTest()
    {
+	   //protocol://host.subdomain.topdomain/dir1/dir2/filename.ext
 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   ArrayList<String> testurls = new ArrayList<String>();
 	   System.out.println(urlVal.isValid("http://www.amazon.com"));
 	   
-	   
+	   //everything else valid or empty, different schemes
+	   testurls.add("http://www.google.com");
+	   testurls.add("http:/www.google.com");
+	   testurls.add("http:///www.google.com");
+	   testurls.add("http:\\www.google.com");
+	   testurls.add("https://www.google.com");
+	   testurls.add("ftp://www.google.com");
+	   testurls.add("123://www.google.com");
+	   testurls.add("foo://www.google.com");
+	   //everything else valid or empty, different sub-domain
+	   testurls.add("http://123.google.com");
+	   testurls.add("http://1.2.3.google.com");
+	   testurls.add("http://!@#.google.com");
+	   testurls.add("http://foo.google.com");
+	   //everything else valid or empty, different domain
+	   testurls.add("http://www.google.edu");
+	   testurls.add("http://www.google.co.uk");
+	   testurls.add("http://www.google.123");
+	   testurls.add("http://www.google.bar");
+	   testurls.add("http://www.aaaaaaaaaaaaaaa.com");
+	   testurls.add("http://www. .com");
+	   testurls.add("http://www.google. ");
+	   testurls.add("http://192.128.1.1");
+	   testurls.add("http://1.1.1.1");
+	   testurls.add("http://11.11.11.11");
+	   testurls.add("http://111.111.111.111");
+	   testurls.add("http://1111.1111.1111.1111");
+	   testurls.add("http://1.1.1.1.1");
+	   //everything else valid or empty, different port
+	   testurls.add("http://www.google.com:0");
+	   testurls.add("http://www.google.com: ");
+	   testurls.add("http://www.google.com:80");
+	   testurls.add("http://www.google.com:423");
+	   testurls.add("http://www.google.com:32767");
+	   testurls.add("http://www.google.com:32766");
+	   testurls.add("http://www.google.com:65535");
+	   testurls.add("http://www.google.com:65536");
+	   testurls.add("http://www.google.com:foo");
+	   testurls.add("https://www.google.com:423");
+	   testurls.add("https://www.google.com:80");
+	   testurls.add("https://www.google.com:bar");
+	   testurls.add("ftp://www.google.com:21");
+	   testurls.add("ftp://www.google.com:80");
+	   testurls.add("ftp://www.google.com:bar");
+	 //everything else valid or empty, different path
+	   testurls.add("http://www.google.com/foo");
+	   testurls.add("http://www.google.com/foo/bar");
+	   testurls.add("http://www.google.com/~foo");
+	   testurls.add("http://www.google.com//foo");
+	   testurls.add("http://www.google.com/foo/bar/123/foobar");
+	   testurls.add("http://www.google.com/foo?bar");
+	   testurls.add("http://www.google.com/foo$");
+	   testurls.add("http://www.google.com/ /");
+	   testurls.add("http://www.google.com\foo");
+	   for(String url : testurls)
+       {
+       	System.out.println(urlVal.isValid(url) + ": " + url);
+       }
    }
    
    
